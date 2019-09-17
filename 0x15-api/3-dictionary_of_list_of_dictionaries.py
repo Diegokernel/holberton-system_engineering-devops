@@ -12,12 +12,12 @@ if __name__ == "__main__":
     for user in user_l:
         payload = {'userId': user.get("id")}
         todo = requests.get('https://jsonplaceholder.typicode.com/todos',
-                             params=payload).json()
+                            params=payload).json()
         complete = []
     for attr in todo:
         complete.append({"task": attr.get("title"),
-                          "completed": attr.get("completed"),
-                          "username": user.get("username")})
+                         "completed": attr.get("completed"),
+                         "username": user.get("username")})
         dicts[user.get("id")] = complete
     with open("todo_all_employees.json", 'w') as json_file:
-        json.dump(complete, json_file)
+        json.dump(dicts, json_file)
