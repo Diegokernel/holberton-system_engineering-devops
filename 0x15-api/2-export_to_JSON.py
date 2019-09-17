@@ -14,7 +14,7 @@ if __name__ == "__main__":
     complete = []
     for attr in todo:
         complete.append({"task": attr.get("title"),
-                          "completed": attr.get("completed"),
-                          "username": user.get("username")})
+                         "completed": attr.get("completed"),
+                         "username": user.get("username")})
     with open('{}.json'.format(argv[1]), 'w') as json_file:
         json.dump({argv[1]: complete}, json_file)

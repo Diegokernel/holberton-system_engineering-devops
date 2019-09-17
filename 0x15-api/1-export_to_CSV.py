@@ -15,4 +15,5 @@ if __name__ == "__main__":
         employee_writer = csv.writer(employee_file, quoting=csv.QUOTE_ALL)
         for attr in todo:
             employee_writer.writerow([attr.get('userId'), user.get('username'),
-                    attr.get('completed'), attr.get('title')])
+                                      attr.get('completed'),
+                                      attr.get('title')])
