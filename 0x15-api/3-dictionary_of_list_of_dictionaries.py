@@ -1,23 +1,26 @@
 #!/usr/bin/python3
 " export data in the JSON format."
-from requests import get
 from sys import argv
 import json
 import requests
 
 if __name__ == "__main__":
-
-    user_l = get('https://jsonplaceholder.typicode.com/users').json()
-    dicts = {}
-    for user in user_l:
-        payload = {'userId': user.get("id")}
-        todo = requests.get('https://jsonplaceholder.typicode.com/todos',
-                            params=payload).json()
+    users = requests.get('https://jsonplaceholder.typicode.com/users').json()
+    todo = requests.get('https://jsonplaceholder.typicode.com/todos').json()
+    the_dict = {}
+    for user in users:
         complete = []
-    for attr in todo:
-        complete.append({"task": attr.get("title"),
-                         "completed": attr.get("completed"),
-                         "username": user.get("username")})
-        dicts[user.get("id")] = complete
-    with open("todo_all_employees.json", 'w') as json_file:
-        json.dump(dicts, json_file)
+        user_id = user.get('id')
+        username = user.get('username')
+        for attr in todo:
+            if user_id == attr.get('userId'):
+                info = {
+                    'task': attr.get('title'),
+                    'completed': attr.get('completed'),
+                    'username': username,
+                }
+                complete.append(info)
+            dictu = {user_id: complete}
+        the_dict.update(dictu)
+    with open('todo_all_employees.json', 'w') as f:
+        json.dump(the_dict, f)
