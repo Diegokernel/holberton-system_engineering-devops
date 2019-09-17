@@ -3,11 +3,11 @@
 from requests import get
 from sys import argv
 import json
+import requests
 
 if __name__ == "__main__":
 
-    user_l = get('https://jsonplaceholder.typicode.com/users/{}'
-               .format(argv[1])).json()
+    user_l = get('https://jsonplaceholder.typicode.com/users').json()
     dicts = {}
     for user in user_l:
         payload = {'userId': user.get("id")}
