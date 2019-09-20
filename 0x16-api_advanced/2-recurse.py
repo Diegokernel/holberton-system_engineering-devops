@@ -11,12 +11,13 @@ def recurse(subreddit, hot_list=[], after=""):
     subs = requests.get(url, headers=headers, allow_redirects=False,)
     if subs:
         data = subs.json().get('data')
-        for child in data.get("children"):
+        children = data.get("children")
+        for child in children:
             data_child = child.get("data")
             title = data_child.get("title")
             hot_list.append(title)
-
-        if data.get("after"):
+        after = data.get("after")
+        if after:
             return recurse(subreddit, hot_list, after)
         return hot_list
     return None
